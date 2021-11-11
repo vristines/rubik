@@ -49,10 +49,9 @@ S = conjugate(prime(X), E)
 
 SEXY = commutator(R, U)
 
+SUNE = sequence([R, U, prime(R), U, R, double(U), prime(R)])
 
-
-
-
+PLL_U = sequence([double(M), U, M, double(U), prime(M), prime(U), double(M)])
 
 
 

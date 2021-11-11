@@ -7,5 +7,8 @@ if __name__ == '__main__':
     cube = init_cube()
     print_cube(cube)
     
-    cube = shuffle(1000,cube)
-    cube = CFOP_cross(cube)
+    #cube = shuffle(1000,cube)
+    #cube = CFOP_cross(cube)
+    #cube = CFOP_D_corners(cube)
+
+    cube = process(PLL_U, cube)
