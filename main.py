@@ -1,14 +1,10 @@
-from rc_graphics import *
 from rc_core import *
 from rc_algs import *
 from rc_methods import *
 
 if __name__ == '__main__':
-    cube = init_cube()
-    print_cube(cube)
-    
-    #cube = shuffle(1000,cube)
-    #cube = CFOP_cross(cube)
-    #cube = CFOP_D_corners(cube)
 
-    cube = process(PLL_U, cube)
+    cube = Cube()
+    cube.shuffle(1000)
+    cube.print()
+

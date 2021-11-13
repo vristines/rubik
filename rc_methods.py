@@ -6,9 +6,9 @@ from rc_algs import *
 def CFOP_cross(cube):
     def white_to_top(cube):
         if (cube[3][1][1] == 0) or (cube[5][1][1] == 0):
-            cube = process(Y,cube)
+            cube.process(Y)
         while cube[1][1][1] != 0:
-            cube = process(X,cube)
+            cube.process(X)
         return cube
 
     """
