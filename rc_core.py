@@ -16,7 +16,6 @@ class Cubelet:
     def rotY(self):
         self.F, self.R, self.B, self.L = self.R, self.B, self.L, self.F
 
-    
 
 class Cube:
     def __init__(self):
@@ -76,23 +75,23 @@ class Cube:
         def black():
             print('  ',end='')
         def cl(a,b,c,d):
-            col = ''
+            colS = ''
             match d:
-                case 0: col = self.data[a][b][c].D
-                case 1: col = self.data[a][b][c].U
-                case 2: col = self.data[a][b][c].F
-                case 3: col = self.data[a][b][c].R
-                case 4: col = self.data[a][b][c].B
-                case 5: col = self.data[a][b][c].L
-            match col:
-                case 'W' : col = 0
-                case 'Y' : col = 1
-                case 'B' : col = 2
-                case 'R' : col = 3
-                case 'G' : col = 4
-                case 'O' : col = 5
-                case _   : col = 6
-            print(colored('██', COLORS[col]),end='')
+                case 0: colS = self.data[a][b][c].D
+                case 1: colS = self.data[a][b][c].U
+                case 2: colS = self.data[a][b][c].F
+                case 3: colS = self.data[a][b][c].R
+                case 4: colS = self.data[a][b][c].B
+                case 5: colS = self.data[a][b][c].L
+            match colS:
+                case 'W' : colI = 0
+                case 'Y' : colI = 1
+                case 'B' : colI = 2
+                case 'R' : colI = 3
+                case 'G' : colI = 4
+                case 'O' : colI = 5
+                case _   : colI = 6
+            print(colored('██', COLORS[colI]),end='')
         def eol():
             print()
         data = self.data
@@ -141,7 +140,7 @@ class Cube:
                 case 'U': self.phys_U()
                 case 'X': self.phys_X()
                 case 'Y': self.phys_Y()
-        self.print()
+        #self.print()
 
     def shuffle(self, num):
         poss = ['U', 'X', 'Y']
@@ -149,3 +148,13 @@ class Cube:
         for i in range(num):
             shuf.append(poss[randint(0,2)])
         self.process(shuf)
+
+    def color(a, b, c, f, cube):
+        match f: 
+            case 'U': return cube.data[a][b][c].U
+            case 'D': return cube.data[a][b][c].D
+            case 'F': return cube.data[a][b][c].F
+            case 'B': return cube.data[a][b][c].B
+            case 'L': return cube.data[a][b][c].L
+            case 'R': return cube.data[a][b][c].R
+            case __ : return ' '

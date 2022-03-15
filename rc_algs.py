@@ -51,13 +51,9 @@ SEXY = commutator(R, U)
 
 SUNE = sequence([R, U, prime(R), U, R, double(U), prime(R)])
 
-PLL_U = sequence([double(M), U, M, double(U), prime(M), prime(U), double(M)])
+FRURUF = conjugate(F, commutator(R, U))
 
-
-
-
-
-
-
-
-
+PLL_H = sequence([double(M), U, double(M), double(U), double(M), U, double(M)])
+PLL_UA = sequence([R, prime(U), R, U, R, U, R, prime(U), prime(R), prime(U), double(R)])
+PLL_UB = double(PLL_UA) # inverse PLL_Ua
+PLL_Z = sequence([prime(M), U, double(M), U, double(M), U, prime(M), double(U), double(M)])
