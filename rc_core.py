@@ -20,55 +20,23 @@ class Cubelet:
 class Cube:
     def __init__(self):
         ## CUBE GENERATION
-        data = []
+        self.data = []
         for a in range(3):
             mid_1 = []
             for b in range(3):
                 mid_2 = []
                 for c in range(3):
-                    """
-                    pozdeji aplikovat:
-                    if a == 2: add W
-                    if a == 0: add Y
-                    if b == 2: add B
-                    if c == 2: add R
-                    if b == 0: add G
-                    if c == 0: add O
-                    """
-                    mid_2.append('')
+                    coloring = [' ',' ',' ',' ',' ',' ']
+                    if a == 2: coloring[0] = 'W'
+                    if a == 0: coloring[1] = 'Y'
+                    if b == 2: coloring[2] = 'B'
+                    if c == 2: coloring[3] = 'R'
+                    if b == 0: coloring[4] = 'G'
+                    if c == 0: coloring[5] = 'O'
+                    colors = ''.join(coloring)
+                    mid_2.append(Cubelet(colors))
                 mid_1.append(mid_2)
-            data.append(mid_1)
-
-        ## CUBE COLORIZATION
-
-        data[0][0][0] = Cubelet(' Y  GO')
-        data[0][0][1] = Cubelet(' Y  G ')
-        data[0][0][2] = Cubelet(' Y RG ')
-        data[0][1][0] = Cubelet(' Y   O')
-        data[0][1][1] = Cubelet(' Y    ')
-        data[0][1][2] = Cubelet(' Y R  ')
-        data[0][2][0] = Cubelet(' YB  O')
-        data[0][2][1] = Cubelet(' YB   ')
-        data[0][2][2] = Cubelet(' YBR  ')
-        data[1][0][0] = Cubelet('    GO')
-        data[1][0][1] = Cubelet('    G ')
-        data[1][0][2] = Cubelet('   RG ')
-        data[1][1][0] = Cubelet('     O')
-        data[1][1][1] = Cubelet('      ')
-        data[1][1][2] = Cubelet('   R  ')
-        data[1][2][0] = Cubelet('  B  O')
-        data[1][2][1] = Cubelet('  B   ')
-        data[1][2][2] = Cubelet('  BR  ')
-        data[2][0][0] = Cubelet('W   GO')
-        data[2][0][1] = Cubelet('W   G ')
-        data[2][0][2] = Cubelet('W  RG ')
-        data[2][1][0] = Cubelet('W    O')
-        data[2][1][1] = Cubelet('W     ')
-        data[2][1][2] = Cubelet('W  R  ')
-        data[2][2][0] = Cubelet('W B  O')
-        data[2][2][1] = Cubelet('W B   ')
-        data[2][2][2] = Cubelet('W BR  ')
-        self.data = data
+            self.data.append(mid_1)
     
     def print(self):
         COLORS = ['white', 'yellow', 'blue', 'red', 'green', 'magenta', 'grey']
