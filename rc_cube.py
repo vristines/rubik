@@ -1,43 +1,21 @@
 from termcolor import colored
-from random import randint
-
-class Cubelet:
-    def __init__(self,cols):
-        self.D = f'{cols[0]}'
-        self.U = f'{cols[1]}'
-        self.F = f'{cols[2]}'
-        self.R = f'{cols[3]}'
-        self.B = f'{cols[4]}'
-        self.L = f'{cols[5]}'
-    
-    def rotX(self):
-        self.B, self.D, self.F, self.U = self.U, self.B, self.D, self.F
-        
-    def rotY(self):
-        self.F, self.R, self.B, self.L = self.R, self.B, self.L, self.F
-
+from rc_cubelet import *
+from random import choice
 
 class Cube:
     def __init__(self):
-        ## CUBE GENERATION
-        self.data = []
-        for a in range(3):
-            mid_1 = []
-            for b in range(3):
-                mid_2 = []
-                for c in range(3):
-                    coloring = [' ',' ',' ',' ',' ',' ']
-                    if a == 2: coloring[0] = 'W'
-                    if a == 0: coloring[1] = 'Y'
-                    if b == 2: coloring[2] = 'B'
-                    if c == 2: coloring[3] = 'R'
-                    if b == 0: coloring[4] = 'G'
-                    if c == 0: coloring[5] = 'O'
-                    colors = ''.join(coloring)
-                    mid_2.append(Cubelet(colors))
-                mid_1.append(mid_2)
-            self.data.append(mid_1)
+        self.data = [[[Cubelet(a, b, c) for c in range(3)] for b in range(3)] for a in range(3)]
+        for i in range(1000):
+            self.process(choice(['U', 'X', 'Y']))
     
+    def process(self, alg):  
+        for m in alg:
+            match m:
+                case 'U': self.phys_U()
+                case 'X': self.phys_X()
+                case 'Y': self.phys_Y()
+        #self.print()
+
     def print(self):
         COLORS = ['white', 'yellow', 'blue', 'red', 'green', 'magenta', 'grey']
         def black():
@@ -76,7 +54,7 @@ class Cube:
         black()     ; black()     ; black()     ; cl(2,0,0,0) ; cl(2,0,1,0) ; cl(2,0,2,0) ; print()
         eol()
 
-    def phys_U(self):
+    def phys_U(self): 
         data = self.data
         for a in range(3):
             for b in range(3):
@@ -102,27 +80,19 @@ class Cube:
             data[a][0][0], data[a][2][0], data[a][2][2], data[a][0][2] = data[a][2][0], data[a][2][2], data[a][0][2], data[a][0][0]
             data[a][0][1], data[a][1][0], data[a][2][1], data[a][1][2] = data[a][1][0], data[a][2][1], data[a][1][2], data[a][0][1]
 
-    def process(self, alg):  
-        for m in alg:
-            match m:
-                case 'U': self.phys_U()
-                case 'X': self.phys_X()
-                case 'Y': self.phys_Y()
-        #self.print()
 
-    def shuffle(self, num):
-        poss = ['U', 'X', 'Y']
-        shuf = []
-        for i in range(num):
-            shuf.append(poss[randint(0,2)])
-        self.process(shuf)
+    """ def phys_F(self):
+        rot_list = [(a,2,c) for a in range(3) for c in range(3)]
+        for coord in rot_list:
+            for c in range(3):
+                self.data[coord[0]][coord[1]][coord[2]].rotZ()
+        self.data[0][2][0], self.data[0][2][2], self.data[2][2][2], self.data[2][2][0] = self.data[2][2][0], self.data[0][2][0], self.data[0][2][2], self.data[2][2][2] 
+        self.data[0][2][1], self.data[1][2][2], self.data[2][2][1], self.data[1][2][0] = self.data[1][2][0], self.data[0][2][1], self.data[1][2][2], self.data[2][2][1]
+    """
 
-    def color(a, b, c, f, cube):
-        match f: 
-            case 'U': return cube.data[a][b][c].U
-            case 'D': return cube.data[a][b][c].D
-            case 'F': return cube.data[a][b][c].F
-            case 'B': return cube.data[a][b][c].B
-            case 'L': return cube.data[a][b][c].L
-            case 'R': return cube.data[a][b][c].R
-            case __ : return ' '
+
+        # NEW KERNEL MOVES : .. F ..  Fw .. Y 
+
+        # upravit podle schématu:
+        # vytvořit seznam původních a nových souřadnic 
+        # projet paralelně listy a udělat self.data[x[l1[0]]][x[l1[1]]][x[l1[2]]] = self.data[y[l2[0]]][y[l2[1]]][y[l2[2]]]
